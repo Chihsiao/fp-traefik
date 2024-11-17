@@ -1,0 +1,15 @@
+import os
+
+KvRegistry = {}
+
+VERBOSE = os.environ.get('FP_TRAEFIK_VERBOSE')
+
+DEFAULT_SERVICE = os.environ.get('FP_TRAEFIK_DEFAULT_SERVICE')
+DEFAULT_ENTRYPOINT = os.environ.get('FP_TRAEFIK_DEFAULT_ENTRYPOINT')
+DEFAULT_ROUTER_NAME_PREFIX = (os.environ.get('FP_TRAEFIK_DEFAULT_ROUTER_NAME_PREFIX')
+                              or (DEFAULT_SERVICE and f'{DEFAULT_SERVICE}-' or None))
+
+SUBDOMAIN_HOST = os.environ.get('FP_TRAEFIK_SUBDOMAIN_HOST')
+
+REDIS_URL = os.environ['FP_TRAEFIK_REDIS_URL']
+REDIS_KWARGS = {}

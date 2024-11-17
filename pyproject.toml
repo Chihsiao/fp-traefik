@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fp-traefik"
+version = "0.1.0"
+authors = ["Akira Yamazaki <chihsiao@outlook.com>"]
+description = "a frps plugin that makes frps as a configuration source for Traefik via Redis."
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12.0"
+flask = "^3.1.0"
+redis = "^5.2.0"
+waitress = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
