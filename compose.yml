@@ -34,6 +34,7 @@ services:
       FP_TRAEFIK_DEFAULT_SERVICE: frp@docker
       FP_TRAEFIK_DEFAULT_ENTRYPOINT: http
       FP_TRAEFIK_DEFAULT_ROUTER_NAME_PREFIX: frp-
+      FP_TRAEFIK_EXPOSED_BY_DEFAULT: false
 
   frps:
     depends_on:
@@ -89,5 +90,6 @@ services:
         type = "http"
         subdomain = "www"
         locations = ["/foo", "/bar"]
+        metadatas."traefik/enable" = "true"
         EOF
         frpc -c /frpc.toml

@@ -29,6 +29,9 @@ updates its dynamic configuration accordingly upon detecting changes in the key-
    - `FP_TRAEFIK_DEFAULT_ROUTER_NAME_PREFIX`: Prefix used for the default router name when no router is set for proxies.
    - `FP_TRAEFIK_VERBOSE`: Controls the logging level; setting it to `true` enables debug mode.
 
+   - `FP_TRAEFIK_EXPOSED_BY_DEFAULT`: Whether to autoconfigure proxies.
+     - Can be overridden by `metadatas."traefik/enable"` in the frpc configuration.
+
 3. **Run the application**
 
    ```shell

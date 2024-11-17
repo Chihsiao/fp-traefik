@@ -15,6 +15,10 @@ class HttpKv(LeveledKv):
         self.configure()
 
     def configure(self):
+        enable = self['traefik/enable'] or self.proxy.connection.kv['traefik/enable'] or EXPOSED_BY_DEFAULT
+        if not enable or enable.lower() not in ('1', 'true'):
+            return
+
         @lazy
         def build_rule():
             rules = []
