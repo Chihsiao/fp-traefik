@@ -31,6 +31,7 @@ updates its dynamic configuration accordingly upon detecting changes in the key-
 
    - `FP_TRAEFIK_EXPOSED_BY_DEFAULT`: Whether to autoconfigure proxies.
      - Can be overridden by `metadatas."traefik/enable"` in the frpc configuration.
+   - `FP_TRAEFIK_ROOT_KEY`: Corresponds to the `providers.redis.rootKey` in Traefik.
 
 3. **Run the application**
 
