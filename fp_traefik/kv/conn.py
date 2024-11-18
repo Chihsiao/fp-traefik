@@ -13,4 +13,4 @@ class ConnKv(LeveledKv):
         self.conn = conn
 
 
-KvRegistry['conn'] = (ConnKv, ('traefik/',))
+KvRegistry['conn'] = (ConnKv, (f'{ROOT_KEY}/',))

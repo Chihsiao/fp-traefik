@@ -10,6 +10,7 @@ DEFAULT_ROUTER_NAME_PREFIX = (os.environ.get('FP_TRAEFIK_DEFAULT_ROUTER_NAME_PRE
                               or (DEFAULT_SERVICE and f'{DEFAULT_SERVICE}-' or None))
 
 EXPOSED_BY_DEFAULT = os.environ.get('FP_TRAEFIK_EXPOSED_BY_DEFAULT')
+ROOT_KEY = os.environ.get('FP_TRAEFIK_ROOT_KEY') or 'traefik'
 
 SUBDOMAIN_HOST = os.environ.get('FP_TRAEFIK_SUBDOMAIN_HOST')
 

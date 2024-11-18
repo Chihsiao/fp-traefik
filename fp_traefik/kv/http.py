@@ -15,7 +15,7 @@ class HttpKv(LeveledKv):
         self.configure()
 
     def configure(self):
-        enable = self['traefik/enable'] or self.proxy.connection.kv['traefik/enable'] or EXPOSED_BY_DEFAULT
+        enable = self[f'{ROOT_KEY}/enable'] or self.proxy.connection.kv[f'{ROOT_KEY}/enable'] or EXPOSED_BY_DEFAULT
         if not enable or enable.lower() not in ('1', 'true'):
             return
 
@@ -44,7 +44,7 @@ class HttpKv(LeveledKv):
 
             return match_all(rules)
 
-        routers_kv = self['traefik/http/routers/']
+        routers_kv = self[f'{ROOT_KEY}/http/routers/']
 
         if len(routers_kv.keys()) == 0:
             if DEFAULT_ROUTER_NAME_PREFIX: routers_kv.next_level(DEFAULT_ROUTER_NAME_PREFIX + self.proxy.name)
@@ -70,4 +70,4 @@ class HttpKv(LeveledKv):
                                      'lacking DEFAULT_ENTRYPOINT', router)
 
 
-KvRegistry['http'] = (HttpKv, ('traefik/',))
+KvRegistry['http'] = (HttpKv, (f'{ROOT_KEY}/',))
