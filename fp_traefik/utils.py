@@ -49,8 +49,8 @@ class LeveledKv:
 
     def locate(self, key: Key) -> Tuple['LeveledKv', str]:
         is_namespace = key.endswith('/')
-        basename = is_namespace and key[:-1] or key
-        dirname, sep, basename = basename.rpartition('/')
+        key = is_namespace and key[:-1] or key
+        dirname, sep, basename = key.rpartition('/')
 
         if sep: parent_kv = self.deep_ns(dirname)
         else: parent_kv, basename = self, key
