@@ -26,7 +26,7 @@ updates its dynamic configuration accordingly upon detecting changes in the key-
    - `FP_TRAEFIK_SUBDOMAIN_HOST`: Corresponds to the `subdomainHost` in frps.
    - `FP_TRAEFIK_DEFAULT_SERVICE`: Default service when no service is set for routers.
    - `FP_TRAEFIK_DEFAULT_ENTRYPOINT`: Default entry point when no entry point is set for routers.
-   - `FP_TRAEFIK_DEFAULT_ROUTER_NAME_PREFIX`: Prefix used for the default router name when no router is set for proxies.
+   - `FP_TRAEFIK_DEFAULT_ROUTER_NAME_PREFIX`: Prefix used for the default router name when no router is set.
    - `FP_TRAEFIK_VERBOSE`: Controls the logging level; setting it to `true` enables debug mode.
 
    - `FP_TRAEFIK_EXPOSED_BY_DEFAULT`: Whether to autoconfigure proxies.
