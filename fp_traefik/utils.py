@@ -5,7 +5,7 @@ __all__ = [
 ]
 
 import threading
-from functools import wraps as func_wraps
+from functools import wraps as func_wraps, lru_cache
 from typing import TypeVar, Union, Tuple, Optional, Mapping, Iterable, Iterator, Callable
 
 _T = TypeVar('_T')
@@ -34,17 +34,27 @@ class LeveledKv:
 
         return _sub_ns
 
-    def locate(self, key: Key) -> Tuple['LeveledKv', str]:
-        parent_kv = self
-        is_namespace = key.endswith('/')
-        basename = is_namespace and key[:-1] or key
+    @lru_cache
+    def deep_ns(self, key: Key) -> 'LeveledKv':
+        if key.endswith('/'): key = key[:-1]
+
+        parent_kv, basename = self, key
         dirname, sep, basename = basename.partition('/')
 
         while sep:
             parent_kv = parent_kv.sub_ns(dirname)
             dirname, sep, basename = basename.partition('/')
 
-        dirname, basename = None, dirname
+        return parent_kv.sub_ns(dirname)
+
+    def locate(self, key: Key) -> Tuple['LeveledKv', str]:
+        is_namespace = key.endswith('/')
+        basename = is_namespace and key[:-1] or key
+        dirname, sep, basename = basename.rpartition('/')
+
+        if sep: parent_kv = self.deep_ns(dirname)
+        else: parent_kv, basename = self, key
+
         return parent_kv, basename + (is_namespace and '/' or '')
 
     def __getitem__(self, item: Key) -> Value:
