@@ -47,7 +47,7 @@ class HttpKv(LeveledKv):
         routers_kv = self[f'{ROOT_KEY}/http/routers/']
 
         if len(routers_kv.keys()) == 0:
-            if DEFAULT_ROUTER_NAME_PREFIX: routers_kv.next_level(DEFAULT_ROUTER_NAME_PREFIX + self.proxy.name)
+            if DEFAULT_ROUTER_NAME_PREFIX: routers_kv.sub_ns(DEFAULT_ROUTER_NAME_PREFIX + self.proxy.name)
             else: logger.warning('failed to set default router for %s@%s, lacking DEFAULT_ROUTER_NAME_PREFIX',
                                  self.proxy.name, self.proxy.type)
 

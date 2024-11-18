@@ -24,15 +24,15 @@ class LeveledKv:
     def keys(self) -> Iterable[Key]: return self._store.keys()
     def items(self) -> Iterable[Entry]: return self._store.items()
 
-    def next_level(self, item: Key) -> 'LeveledKv':
+    def sub_ns(self, item: Key) -> 'LeveledKv':
         if not item.endswith('/'): item += '/'
-        next_level = self._store.get(item)
+        _sub_ns = self._store.get(item)
 
-        if next_level is None:
-            next_level = LeveledKv()
-            self._store[item] = next_level
+        if _sub_ns is None:
+            _sub_ns = LeveledKv()
+            self._store[item] = _sub_ns
 
-        return next_level
+        return _sub_ns
 
     def locate(self, key: Key) -> Tuple['LeveledKv', str]:
         parent_kv = self
@@ -41,7 +41,7 @@ class LeveledKv:
         dirname, sep, basename = basename.partition('/')
 
         while sep:
-            parent_kv = parent_kv.next_level(dirname)
+            parent_kv = parent_kv.sub_ns(dirname)
             dirname, sep, basename = basename.partition('/')
 
         dirname, basename = None, dirname
@@ -49,7 +49,7 @@ class LeveledKv:
 
     def __getitem__(self, item: Key) -> Value:
         parent_kv, basename = self.locate(item)
-        return (basename.endswith('/') and parent_kv.next_level(basename)
+        return (basename.endswith('/') and parent_kv.sub_ns(basename)
                 or parent_kv._store.get(basename) or '')
 
     def __setitem__(self, key: Key, value: Value):
