@@ -92,17 +92,15 @@ updates its dynamic configuration accordingly upon detecting changes in the key-
    serverAddr = "frps"
    serverPort = 7000
    # ...
-   metadatas = [  # connection-level configuration
-       { key = "traefik/http/middlewares/enable-compression/compress", value = "true" },
-   ]
+   [metadatas]  # connection-level configuration
+   "traefik/http/middlewares/enable-compression/compress" = "true"
    
    [[proxies]]
    # ...
-   metadatas = [  # proxy-level configuration
-       { key = "traefik/http/routers/frp-whoami/middlewares/0", value = "enable-compression" },
-       { key = "traefik/http/routers/frp-whoami/entryPoints/0", value = "web-secure" },
-       { key = "traefik/http/routers/frp-whoami/tls", value = "true" },
-   ]
+   [proxies.metadatas]  # proxy-level configuration
+   "traefik/http/routers/frp-whoami/middlewares/0" = "enable-compression"
+   "traefik/http/routers/frp-whoami/entryPoints/0" = "web-secure"
+   "traefik/http/routers/frp-whoami/tls" = "true"
    ```
 
    Connection-level metadata applies to the entire connection, while proxy-level metadata only affects the specific proxy.
